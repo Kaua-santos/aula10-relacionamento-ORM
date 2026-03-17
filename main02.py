@@ -107,4 +107,20 @@ def deletar():
             session.rollback()
             print(f"Ocorreu um erro {erro}")
 
-deletar()
+# deletar()
+
+def listar():
+    with Session() as session:
+        try:
+            restaurantes = session.query(Restaurante).all()
+            for rest in restaurantes:
+                print(f"\n {rest.nome} - {rest.cidade}")
+
+                # pratos > seu restaurante
+                print(f"\n todos os pratos")
+                pratos = session.query(Prato).all()
+                for prato in pratos:
+                    print(f"{prato.nome} - R$ {prato.preco}")
+        except Exception as erro:
+            session.rollback()
+            print(f"Ocorreu um erro {erro}")
